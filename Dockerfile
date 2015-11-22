@@ -18,6 +18,12 @@ EXPOSE 3306
 RUN apt-get -y install postgresql
 EXPOSE 5432
 
+# sqlite3
+RUN apt-get -y install sqlite3
+
+# redis
+RUN apt-get -y install redis-server
+
 # nodejs
 RUN apt-get -y install nodejs \
   && apt-get -y install npm \
@@ -31,7 +37,10 @@ RUN apt-get -y install beanstalkd
 
 # php
 RUN apt-get -y install php5 \
-  && apt-get -y install php5-fpm
+  && apt-get -y install php5-fpm \
+  && apt-get -y install php5-gd \
+  && apt-get -y install php5-sqlite \
+  && apt-get -y install php5-redis
 
 # composer
 RUN apt-get -y install curl \
@@ -57,6 +66,9 @@ RUN cd /var/www \
 RUN apt-get -y autoremove \
   && apt-get clean \
   && apt-get autoclean
+
+# user
+RUN usermod -u 1000 www-data
 
 ADD ./start.sh /start.sh
 CMD ["/bin/bash", "/start.sh"]

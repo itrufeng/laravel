@@ -6,6 +6,9 @@
 # postgres
 /usr/sbin/service postgresql start
 
+# redis
+/usr/sbin/service redis-server start
+
 # php5-fpm
 /usr/sbin/service php5-fpm start
 
